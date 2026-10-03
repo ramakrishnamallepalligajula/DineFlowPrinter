@@ -1,45 +1,48 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from "react";
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import LoginScreen from "./src/screens/LoginScreen";
+import PrinterScreen from "./src/screens/PrinterScreen";
+
+import type {
+  AuthUser,
+  Restaurant,
+} from "./src/types/auth";
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [session, setSession] = useState<{
+    token: string;
+    user: AuthUser;
+    restaurant: Restaurant;
+  } | null>(null);
 
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+  const handleLogin = (
+    token: string,
+    user: AuthUser,
+    restaurant: Restaurant
+  ) => {
+    setSession({
+      token,
+      user,
+      restaurant,
+    });
+  };
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
+  if (!session) {
+    return (
+      <LoginScreen
+        onLogin={handleLogin}
       />
-    </View>
+    );
+  }
+
+  return (
+    <PrinterScreen
+      userName={session.user.name}
+      restaurantName={session.restaurant.name}
+      restaurantId={session.user.restaurantId}
+      userRole={session.user.role}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
