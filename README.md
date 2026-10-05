@@ -95,3 +95,24 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+
+
+
+# DineFlow Python Printer Agent
+
+The repository also contains the local Python printer agent used for DineFlow thermal printing.
+
+## Python Agent Requirements
+
+- Python 3
+- Bluetooth-enabled computer
+- Compatible thermal printer
+- DineFlow printer device pairing code
+
+## Install Python dependencies
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
